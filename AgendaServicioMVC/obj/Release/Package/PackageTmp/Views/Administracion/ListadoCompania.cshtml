@@ -1,0 +1,96 @@
+﻿@model List<AgendaServicio.Entities.Common.Compania>
+@{
+    <style>
+        th {
+            text-align: center;
+            background-color: #f9f9f9 !important;
+            color: black;
+            padding-top: 10px !important;
+            padding-bottom: 2px !important;
+        }
+
+        .tdRowspan {
+            background-color: #ffffff !important;
+        }
+    </style>
+}
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <button id="btnAgregar" class="btn btn-success btn-lg" type="button">
+            Agregar
+        </button>
+        <button id="btnEliminarSeleccionados" class="btn btn-danger btn-lg" type="button">
+            Eliminar Seleccionados
+        </button>
+    </div>
+</div>
+<br />
+<div class="table-responsive" style="height: 840px; overflow-y: auto;">
+    <table class="table table-condensed table-striped table-sm" style="font-size:8pt;" id="tb_Listado">
+        <thead>
+            <tr>
+                <th>
+                    @Html.CheckBox("compChkAll", new { @class = "form-control checkbox" })
+                </th>
+                <th>
+                    <p>
+                        Nombre
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        Acción
+                    </p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model == null)
+            {
+                <tr>
+                    <td colspan="3" align="center">
+                        Información No Disponible...
+                    </td>
+                </tr>
+            }
+            else
+            {
+                if (Model.Count <= 0)
+                {
+                    <tr>
+                        <td colspan="3" align="center">
+                            Información No Disponible...
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (AgendaServicio.Entities.Common.Compania item in Model)
+                    {
+                        <tr>
+                            <td class="tdRowspan htCellVerticalCenter" align="center">
+                                @Html.CheckBox("compChk" + item.Id.ToString(), new { @class = "form-control checkbox compChk", value = item.Id.ToString() })
+                            </td>
+                            <td class="tdRowspan htCellVerticalCenter" align="center">
+                                <p>
+                                    @Html.Label(item.Name)
+                                </p>
+                            </td>
+                            <td class="tdRowspan htCellVerticalCenter" align="center">
+                                <p>
+                                    <button class="btnEditModal btn btn-warning" value="@item.Id.ToString()">
+                                        Editar
+                                    </button>
+                                    <button class="btnDelete btn btn-danger" value="@item.Id.ToString()">
+                                        Eliminar
+                                    </button>
+                                </p>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,12 @@
+﻿@model AgendaServicio.Entities.Common.LlamadaServicio
+
+@{
+    Layout = null;
+    string html = string.Empty;
+    if (Model != null)
+    {
+        html = AgendaServicioMVC.Models.PlantillaCorreoLlamada.GetHtml(Model, (string)ViewBag.PathCorreo);
+        html = html.Replace("~/CorreoLlamada", Url.Content("~/Content/CorreoLlamada"));
+    }
+}
+@Html.Raw(html)

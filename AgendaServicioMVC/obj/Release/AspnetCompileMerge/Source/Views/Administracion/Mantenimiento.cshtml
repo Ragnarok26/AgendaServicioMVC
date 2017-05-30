@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Listado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="divLoad" style="width: 100%;"></div>
+
+@section Scripts {
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.13/cr-1.3.2/fc-3.2.2/fh-3.1.2/r-2.1.0/datatables.min.css" />*@
+    <script type="text/javascript">
+        var url_Listado = "@Url.Action("ListadoMantenimiento", "Administracion")";
+        var url_Export = "@Url.Action("ExportarMantenimiento", "Administracion")";
+    </script>
+    <script src="~/Scripts/js/Administracion/Mantenimiento.js"></script>
+    @*<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.13/cr-1.3.2/fc-3.2.2/fh-3.1.2/r-2.1.0/datatables.min.js"></script>*@
+}

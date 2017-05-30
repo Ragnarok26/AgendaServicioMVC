@@ -1,0 +1,98 @@
+﻿@using AgendaServicio.Entities.Common
+@model List<Ingeniero>
+@{
+    var usuario = (AgendaServicio.Entities.Common.Usuario)ViewBag.Usuario;
+    if (usuario != null)
+    {
+        if (usuario.Roles == null)
+        {
+            usuario.Roles = new List<AgendaServicio.Entities.Common.Rol>();
+        }
+    }
+    else
+    {
+        <script type="text/javascript">
+            window.location = "@Url.Action("GoHome", "Listado")";
+        </script>
+    }
+}
+
+@if (!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")))
+{
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <input id="result" type="hidden" value="">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="color: black;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="text-align:center">Agregar Ingeniero en CallCenter</h4>
+                </div>
+                <div id="ConttblEnginerCC" class="modal-body table-responsive" style="height:300px">
+                    <table class="table table-condensed" id="tblEnginerCC">
+                        @foreach (var item in Model)
+                        {
+                            if (!item.CallCenter)
+                            {
+                                <tr>
+                                    <td> @Html.Label(item.Name) </td>
+                                    <td>
+                                        <button id="btnM_@item.Id" value="@item.Id" class="btn_AddEng btn btn-xs" style="background-color:#5cb85c; font-size:x-small">
+                                            <i id="iM_@item.Id" class="glyphicon glyphicon-plus" style="color:white"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button id="closemodal" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button id="btnCreate" value="Create" class="btn btn-success">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    @if (!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")))
+                    {
+                        <a id="btnModalECC" class="btn btn-xs" data-toggle="modal" data-target="#myModal" style="background-color:green; float:right"><i class="glyphicon glyphicon-plus" style="color:white"></i></a>
+                    }
+                    <div>Ingenieros en Call Center</div>
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 8pt; overflow-y:auto;  max-height: 188px" class="tb_Listado" id="tb_Listado">
+            <table class="table table-condensed table-striped table-responsive">
+                @foreach (var item in Model)
+                {
+                    if (item.CallCenter)
+                    {
+                        if (!string.IsNullOrEmpty(item.Name))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.Label(item.Name)
+                                </td>
+                                @if (!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")))
+                                {
+                                    <td style="text-align:center">
+                                        <button id="btn_@item.Id" value="@item.Id" class="btn_AddEng btn btn-xs deleteCC" style="background-color:red; font-size:x-small">
+                                            <i class="glyphicon glyphicon-minus" style="color:white"></i>
+                                        </button>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</div>

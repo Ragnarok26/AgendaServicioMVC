@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">Calendario de actividades</h2>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div id="CalendarContent" class="row">
+    <div id="calendario"></div>
+</div>
+@Html.Action("EditarModalCalendario", "Listado")
+
+@section Scripts {
+    <link rel="stylesheet" href="~/Content/JqWidgets/jqx.base.css" type="text/css" />
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxdate.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxscheduler.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxscheduler.api.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxwindow.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxnumberinput.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxradiobutton.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/jqxinput.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/globalization/globalize.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/JqWidgets/globalization/globalize.culture.de-DE.js"></script>
+    <script type="text/javascript">
+        var url_Calendario = "@Url.Action("DatosCalendario", "Calendario")";
+        var url_EditarLlamada = "@Url.Action("EditarLlamada", "Listado")";
+        var url_ProcesoEditarLlamada = "@Url.Action("ProcesoEditarLlamada", "Listado")";
+        var url_ProcesoEditarActividad = "@Url.Action("ProcesoEditarActividad", "Listado")";
+    </script>
+    <script src="~/Scripts/js/Calendario/Calendario.js"></script>
+    <script src="~/Scripts/js/Listado/Edicion.js"></script>
+}

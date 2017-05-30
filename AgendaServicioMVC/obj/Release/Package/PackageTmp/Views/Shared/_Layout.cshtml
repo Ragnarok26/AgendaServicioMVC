@@ -1,0 +1,109 @@
+﻿@{
+    var usuario = (AgendaServicio.Entities.Common.Usuario)ViewBag.Usuario;
+    if (usuario.Roles == null)
+    {
+        usuario.Roles = new List<AgendaServicio.Entities.Common.Rol>();
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Toast")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/Toast")
+    @Scripts.Render("~/bundles/Principal")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="background-color:#222222!important; color:white; font-family:Corbel; font-size:20pt;"><b><span>grupo</span> <span style="font-style:italic">hi<span style="color:red">-</span>tec</span></b></a>
+            </div>
+            @if (!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")))
+            {
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="javascript:Cargando('@Url.Action("Index", "Listado")')" class=".loading">
+                            Listado
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:Cargando('@Url.Action("Index", "Calendario")')" class=".loading">
+                            Calendario
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:Cargando('@Url.Action("Index", "Vacacion")')" class=".loading">
+                            Vacaciones
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Administración
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" style="background-color: black; color: white;">
+                            <li>
+                                <a href="javascript:Cargando('@Url.Action("IngenieroSucursal", "Administracion")')" class=".loading" style="color: darkgrey;">
+                                    Asociar Sucursal a Ingeniero
+                                </a>
+                            </li>
+                            @if (usuario.Roles.Any(v => v.Name.Equals("Administrador")))
+                            {
+                                <li>
+                                    <a href="javascript:Cargando('@Url.Action("Usuario", "Administracion")')" class=".loading" style="color: darkgrey;">
+                                        Usuario
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:Cargando('@Url.Action("Rol", "Administracion")')" class=".loading" style="color: darkgrey;">
+                                        Rol
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:Cargando('@Url.Action("Compania", "Administracion")')" class=".loading" style="color: darkgrey;">
+                                        Compañía
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:Cargando('@Url.Action("PlantillaCorreo", "Administracion")')" class=".loading" style="color: darkgrey;">
+                                        Plantilla de Correo
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:Cargando('@Url.Action("Mantenimiento", "Administracion")')" class=".loading" style="color: darkgrey;">
+                                        Reporte de Mantenimientos en Máquina Nueva
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    
+                </ul>
+            }
+            @Html.Partial("_LogOut")
+        </div>
+    </div>
+    @*<div class="container body-content">
+        @RenderBody()
+        @Html.Partial("Modal")
+    </div>*@
+    <div class="body-content">
+        @RenderBody()
+        @Html.Partial("Modal")
+    </div>
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Grupo Hi-Tec</p>
+    </footer>
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,447 @@
+﻿@using AgendaServicio.Entities.Common
+@model LlamadaServicio
+
+@{
+    int count = 0;
+}
+
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align:center;">
+            @Html.Label("lblTitle", "Llamada: ", new { @class = "form-horizontal" })
+            @Html.Label("lblCallId", Model.CallDocNum.ToString(), new { @class = "form-horizontal" })
+        </div>
+        <div class="panel-body">
+                <div class="form form-group col-md-12">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-8">
+                                @Html.LabelFor(model => model.CustomerName, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.CustomerName, new { id = "txtCliente", @class = "form-control input-large", disabled = "disabled" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.CustomerPhone, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.CustomerPhone, new { id = "txtTelefono", @class = "form-control input-large", disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.LabelFor(model => model.CustomerAddress, new { @class = "control-label" })
+                                    @Html.TextAreaFor(model => model.CustomerAddress, new { id = "txtAddress", @class = "form-control input-large", @rows = "2", disabled = "disabled", @style = "resize: none;" })
+                                    @Html.ValidationMessageFor(model => model.CustomerAddress)
+                                </p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactName, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactName, new { id = "txtContacto", @class = "form-control input-large", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactTel, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactTel, new { id = "txtTelefonoCnt", @class = "form-control input-large", disabled = "disabled" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactTelAd, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactTelAd, new { id = "txtTelefonoAdCnt", @class = "form-control input-large", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactCel, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactCel, new { id = "txtCelularCnt", @class = "form-control input-large", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactEmail, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactEmail, new { id = "txtEmailCnt", @class = "form-control input-large", disabled = "disabled" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactAddr, new { @class = "control-label" })
+                                    @Html.TextAreaFor(model => model.ContactAddr, new { id = "txtAddress", @class = "form-control input-large", @rows = "2", disabled = "disabled", @style = "resize: none;" })
+                                </p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ItemCode, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ItemCode, new { id = "txtCliente", @class = "form-control input-large", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.SN, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.SN, new { id = "txtTelefono", @class = "form-control input-large", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.InternalSN, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.InternalSN, new { id = "txtTelefono", @class = "form-control input-large", disabled = "disabled" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>
+                                    @Html.LabelFor(model => model.MachineAddress, new { @class = "control-label" })
+                                    @Html.TextAreaFor(model => model.MachineAddress, new { id = "txtAddress", @class = "form-control input-large", @rows = "2", disabled = "disabled", @style = "resize: none;" })
+                                </p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.CallType, new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.CallTypeId, (SelectList)ViewBag.ListTipoServicio, "Seleccione Servicio", new { id = "CallType", @class = "form-control input-large" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.Label("lblSucursal", "Sucursal", new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.Sucursal.Id, (SelectList)ViewBag.ListSucursales, "Seleccione Sucursal", new { id = "idSucursal", @class = "form-control input-large" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.Label("lblEstatus", "Estatus", new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.Estatus, (SelectList)ViewBag.ListEstatusServicio, "Seleccione Estatus", new { id = "idEstatusServicio", @class = "form-control input-large" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom:2%">
+                                <p>
+                                    @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+                                    @Html.TextAreaFor(model => model.Description, new { id = "tDescripcion", @class = "form-control input-large", @rows = "3", @style = "resize: none;" })
+                                </p>
+                                <hr />
+                                <p>
+                                    <button id="btnCallSave" value="@Model.CallId" class="btn btn-success" style="float:right;">Guardar</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="form form-group col-md-12">
+                <div class="container-fluid">
+                    <div class="panel-group" id="accordion">
+                        @foreach (var item in Model.Actividades)
+                        {
+                            count++;
+                            string hrefConcat = "collapse" + count;
+                            int datePick1 = count > 1 ? count = count + 1 : count;
+                            int datePick2 = count + 1;
+                            string datepicker1 = "datepicker" + datePick1;
+                            string datepicker2 = "datepicker" + datePick2;
+                            var selectListInges = new SelectList((List<SelectListItem>)ViewBag.ListIngenieros, "Value", "Text", item.Ingeniero == null ? "" : item.Ingeniero.Id.ToString());
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#@hrefConcat">
+                                        <h4 class="panel-title">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                            @item.ActivityType &nbsp; @item.ActivityBeginTime
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="@hrefConcat" class="panel-collapse collapse">
+                                    <div class="form form-group">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p>
+                                                        @Html.LabelFor(model => item.Ingeniero.Name, new { @class = "control-label" })
+                                                        @Html.DropDownListFor(model => item.Ingeniero.Id, selectListInges, "Seleccione Ingeniero", new { @class = "form-control input-large", id = ("ddlIngeniero" + item.ActivityId) })
+                                                    </p>
+                                                    <p>
+                                                        @Html.Label("lblActType", "Tipo de actividad: ", new { @class = "control-label" })
+                                                        <br />
+                                                        @Html.Label("lblActivityType", item.ActivityType, new { @class = "control-label" })
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="col-sm-12">
+                                                        @Html.LabelFor(model => item.ActivityBeginTime, new { @class = "control-label" })
+                                                        <div class="form-group">
+                                                            <div class="input-group date" id="@datepicker1">
+                                                                @Html.TextBox("txtActivityBeginTime" + item.ActivityId, item.ActivityBeginTime, "{0:dd/MM/yyyy HH:mm tt}", new { @placeholder = "Seleccione fecha", @class = ("txtFechaInicio" + item.ActivityId) + " txtEditDatePicker form-control  input-large" })
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-default btnEditDatePicker" type="button" value="@("txtActivityBeginTime" + item.ActivityId)">
+                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        @Html.LabelFor(model => item.ActivityEndTime, new { @class = "control-label" })
+                                                        <div class="form-group">
+                                                            <div class="input-group date" id="@datepicker2">
+                                                                @Html.TextBox("txtActEndTime" + item.ActivityId, item.ActivityEndTime, "{0:dd/MM/yyyy HH:mm tt}", new { @placeholder = "Seleccione fecha", @class = ("txtFechaFin" + item.ActivityId) + " txtEditDatePicker form-control  input-large" })
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-default btnEditDatePicker" type="button" value="@("txtActEndTime" + item.ActivityId)">
+                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="margin-bottom:2%;">
+                                                    <p>
+                                                        @Html.LabelFor(model => item.ActivityDetails, new { @class = "control-label" })
+                                                        @Html.TextBox("txtActDet" + item.ActivityId, item.ActivityDetails, new { @class = "form-control input-large" })
+                                                    </p>
+                                                    <p>
+                                                        <button id="btnCreate" value="@item.ActivityId|@Model.CallId" class="btn btn-success btn-save-activity" style="float:right">Guardar</button>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br /><br /><br /><br /><br /><br />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align:center;">
+            @Html.Label("lblTitle", "Llamada: ", new { @class = "form-horizontal" })
+            @Html.Label("lblCallId", Model.CallDocNum.ToString(), new { @class = "form-horizontal" })
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="form form-group">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.CustomerName, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.CustomerName, new { id = "txtCliente", @class = "form-control", disabled = "disabled" })
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.CustomerPhone, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.CustomerPhone, new { id = "txtTelefono", @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.LabelFor(model => model.CustomerAddress, new { @class = "control-label" })
+                                    @Html.TextAreaFor(model => model.CustomerAddress, new { id = "txtAddress", @class = "form-control", @rows = "2", disabled = "disabled", @style = "resize: none;" })
+                                    @Html.ValidationMessageFor(model => model.CustomerAddress)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactName, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactName, new { id = "txtContacto", @class = "form-control", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactTel, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactTel, new { id = "txtTelefonoCnt", @class = "form-control", disabled = "disabled" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactTelAd, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactTelAd, new { id = "txtTelefonoAdCnt", @class = "form-control", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactCel, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactCel, new { id = "txtCelularCnt", @class = "form-control", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactEmail, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ContactEmail, new { id = "txtEmailCnt", @class = "form-control", disabled = "disabled" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>
+                                    @Html.LabelFor(model => model.ContactAddr, new { @class = "control-label" })
+                                    @Html.TextAreaFor(model => model.ContactAddr, new { id = "txtAddress", @class = "form-control", @rows = "2", disabled = "disabled", @style = "resize: none;" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.ItemCode, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.ItemCode, new { id = "txtCliente", @class = "form-control", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.SN, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.SN, new { id = "txtTelefono", @class = "form-control", disabled = "disabled" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.InternalSN, new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.InternalSN, new { id = "txtTelefono", @class = "form-control", disabled = "disabled" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>
+                                    @Html.LabelFor(model => model.MachineAddress, new { @class = "control-label" })
+                                    @Html.TextAreaFor(model => model.MachineAddress, new { id = "txtAddress", @class = "form-control", @rows = "2", disabled = "disabled", @style = "resize: none;" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.LabelFor(model => model.CallType, new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.CallTypeId, (SelectList)ViewBag.ListTipoServicio, "Seleccione Servicio", new { id = "CallType", @class = "form-control" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.Label("lblSucursal", "Sucursal", new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.Sucursal.Id, (SelectList)ViewBag.ListSucursales, "Seleccione Sucursal", new { id = "idSucursal", @class = "form-control" })
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>
+                                    @Html.Label("lblEstatus", "Estatus", new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.Estatus, (SelectList)ViewBag.ListEstatusServicio, "Seleccione Estatus", new { id = "idEstatusServicio", @class = "form-control" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom:2%">
+                                <p>
+                                    @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+                                    @Html.TextAreaFor(model => model.Description, new { id = "tDescripcion", @class = "form-control", @rows = "3", @style = "resize: none;" })
+                                </p>
+                                <p>
+                                    <button id="btnCallSave" value="@Model.CallId" class="btn btn-success" style="float:right;">Guardar</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form form-group">
+                    <div class="container-fluid">
+                        <div class="panel-group" id="accordion">
+                            @foreach (var item in Model.Actividades)
+                            {
+                                count++;
+                                string hrefConcat = "collapse" + count;
+                                int datePick1 = count > 1 ? count = count + 1 : count;
+                                int datePick2 = count + 1;
+                                string datepicker1 = "datepicker" + datePick1;
+                                string datepicker2 = "datepicker" + datePick2;
+                                var selectListInges = new SelectList((List<SelectListItem>)ViewBag.ListIngenieros, "Value", "Text", item.Ingeniero == null ? "" : item.Ingeniero.Id.ToString());
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#@hrefConcat">
+                                            <h4 class="panel-title">
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                                @item.ActivityType &nbsp; @item.ActivityBeginTime
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div id="@hrefConcat" class="panel-collapse collapse">
+                                        <div class="form form-group">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p>
+                                                            @Html.LabelFor(model => item.Ingeniero.Name, new { @class = "control-label" })
+                                                            @Html.DropDownListFor(model => item.Ingeniero.Id, selectListInges, "Seleccione Ingeniero", new { @class = "form-control", id = ("ddlIngeniero" + item.ActivityId) })
+                                                        </p>
+                                                        <p>
+                                                            @Html.Label("lblActType", "Tipo de actividad: ", new { @class = "control-label" })
+                                                            <br />
+                                                            @Html.Label("lblActivityType", item.ActivityType, new { @class = "control-label" })
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="col-sm-12">
+                                                            @Html.LabelFor(model => item.ActivityBeginTime, new { @class = "control-label" })
+                                                            <div class="form-group">
+                                                                <div class="input-group date" id="@datepicker1">
+                                                                    @Html.TextBox("txtActivityBeginTime" + item.ActivityId, item.ActivityBeginTime, "{0:dd/MM/yyyy HH:mm tt}", new { @placeholder = "Seleccione fecha", @class = ("txtFechaInicio" + item.ActivityId) + " txtEditDatePicker form-control" })
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-default btnEditDatePicker" type="button" value="@("txtActivityBeginTime" + item.ActivityId)">
+                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            @Html.LabelFor(model => item.ActivityEndTime, new { @class = "control-label" })
+                                                            <div class="form-group">
+                                                                <div class="input-group date" id="@datepicker2">
+                                                                    @Html.TextBox("txtActEndTime" + item.ActivityId, item.ActivityEndTime, "{0:dd/MM/yyyy HH:mm tt}", new { @placeholder = "Seleccione fecha", @class = ("txtFechaFin" + item.ActivityId) + " txtEditDatePicker form-control" })
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-default btnEditDatePicker" type="button" value="@("txtActEndTime" + item.ActivityId)">
+                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12" style="margin-bottom:2%;">
+                                                        <p>
+                                                            @Html.LabelFor(model => item.ActivityDetails, new { @class = "control-label" })
+                                                            @Html.TextBox("txtActDet" + item.ActivityId, item.ActivityDetails, new { @class = "form-control" })
+                                                        </p>
+                                                        <p>
+                                                            <button id="btnCreate" value="@item.ActivityId|@Model.CallId" class="btn btn-success btn-save-activity" style="float:right">Guardar</button>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@

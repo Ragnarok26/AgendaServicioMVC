@@ -1,0 +1,41 @@
+﻿@model AgendaServicio.Entities.Common.Compania
+
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align:center;">
+            @if (Model == null)
+            {
+                @Html.Label("lblTitle", "Nueva Compañía", new { @class = "form-horizontal" })
+            }
+            else
+            {
+                @Html.Label("lblTitle", "Compañía: ", new { @class = "form-horizontal" })
+                @Html.Label("lblCompany", Model.Name, new { @class = "form-horizontal" })
+            }
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="form form-group">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.Label("lblName", "Nombre", new { @class = "control-label" })
+                                    @Html.TextBox("txtName", Model == null ? "" : Model.Name, new { @class = "form-control" })
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom:2%">
+                                <p>
+                                    <button id="btnCompanySave" value="@(Model == null ? "0" : Model.Id.ToString())" class="btn btn-success" style="float:right;">Guardar</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

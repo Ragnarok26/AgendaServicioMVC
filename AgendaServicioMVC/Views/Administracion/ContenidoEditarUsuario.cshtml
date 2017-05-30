@@ -1,0 +1,89 @@
+﻿@model AgendaServicio.Entities.Common.Usuario
+
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align:center;">
+            @if (Model == null)
+            {
+                @Html.Label("lblTitle", "Nuevo Usuario", new { @class = "form-horizontal" })
+            }
+            else
+            {
+                @Html.Label("lblTitle", "Usuario: ", new { @class = "form-horizontal" })
+                @Html.Label("lblUserName", Model.Name + " " + Model.FirstName + " " + Model.LastName, new { @class = "form-horizontal" })
+            }
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="form form-group">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.Label("lblName", "Nombre", new { @class = "control-label" })
+                                    @Html.TextBox("txtName", Model == null ? "" : Model.Name, new { @class = "form-control" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.Label("lblFirstName", "Apellido Paterno", new { @class = "control-label" })
+                                    @Html.TextBox("txtFirstName", Model == null ? "" : Model.FirstName, new { @class = "form-control" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.Label("lblLastName", "Apellido Materno", new { @class = "control-label" })
+                                    @Html.TextBox("txtLastName", Model == null ? "" : Model.LastName, new { @class = "form-control" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.Label("lblUserName", "Nombre de Usuario", new { @class = "control-label" })
+                                    @Html.TextBox("txtUserName", Model == null ? "" : Model.UserName, new { @class = "form-control" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.Label("lblPassword", "Contraseña", new { @class = "control-label" })
+                                    @Html.TextBox("txtPassword", Model == null ? "" : Model.Password, new { @class = "form-control" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.Label("lblCompany", "Compañía", new { @class = "control-label" })
+                                    @Html.DropDownList("ddlCompany", Model == null ? ((SelectList)ViewBag.ListCompanias) : new SelectList((SelectList)ViewBag.ListCompanias, "Value", "Text", Model.IdCompany), "Seleccione Compañía", new { @class = "form-control" })
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    @Html.Label("lblRol", "Rol", new { @class = "control-label" })
+                                    @Html.DropDownList("ddlRol", Model == null ? ((SelectList)ViewBag.ListRoles) : new SelectList((SelectList)ViewBag.ListRoles, "Value", "Text", Model.Roles.FirstOrDefault().Id), "Seleccione Rol", new { @class = "form-control" })
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-bottom:2%">
+                                <p>
+                                    <button id="btnUserSave" value="@(Model == null ? "0" : Model.Id.ToString())" class="btn btn-success" style="float:right;">Guardar</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

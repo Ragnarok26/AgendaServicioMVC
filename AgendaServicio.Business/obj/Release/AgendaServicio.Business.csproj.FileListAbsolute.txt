@@ -1,0 +1,11 @@
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\bin\Release\AgendaServicio.Business.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\bin\Release\AgendaServicio.Business.pdb
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\bin\Release\AgendaServicio.DataAccess.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\bin\Release\AgendaServicio.Entities.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\bin\Release\AgendaServicio.DataAccess.pdb
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\bin\Release\AgendaServicio.Entities.pdb
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\obj\Release\AgendaServicio.Business.csprojResolveAssemblyReference.cache
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\obj\Release\AgendaServicio.Business.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\obj\Release\AgendaServicio.Business.pdb
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\bin\Release\EPPlus.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Business\bin\Release\EPPlus.xml

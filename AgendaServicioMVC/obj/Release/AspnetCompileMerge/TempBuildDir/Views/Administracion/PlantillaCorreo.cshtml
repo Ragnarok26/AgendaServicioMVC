@@ -1,0 +1,20 @@
+﻿@model string
+@{
+    ViewBag.Title = "Formato de Correo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<textarea id="editor" name="editor" style="width: 100%; height: 100%; display: none;">@(string.IsNullOrEmpty(Model) ? "" : Model)</textarea>
+
+<link rel="stylesheet" href="~/Content/font-awesome.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+<link rel="stylesheet" href="~/Scripts/froala-editor/css/froala_editor.pkgd.min.css" />
+<link rel="stylesheet" href="~/Scripts/froala-editor/css/froala_style.min.css">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+<script type="text/javascript" src="~/Scripts/froala-editor/js/froala_editor.pkgd.min.js"></script>
+<script type="text/javascript">
+    var url_PlantillaCorreo = '@Url.Action("GuardarCambiosPlantillaCorreo", "Administracion")';
+</script>
+<script src="~/Scripts/js/Administracion/PlantillaCorreo.js"></script>

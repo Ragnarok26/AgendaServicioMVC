@@ -1,0 +1,37 @@
+﻿@model AgendaServicioMVC.Models.Login
+
+@{
+    ViewBag.Title = "Login : Hi-Tec";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<div class="module form-module">
+    <div class="">
+        @*toggle*@
+    </div>
+    <div class="form">
+        @using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div style="text-align:center; color:red">
+                <p><h1><b><i style="color:black; font-style:italic!important">grupo hi</i>-<i style="color:black; font-style:italic!important">tec</i></b></h1></p>
+                <p><h5><b>Agenda de servicios</b></h5></p>
+            </div>
+
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Usuario" })
+            @Html.ValidationMessageFor(m => m.UserName)
+
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña", value = Model.Password })
+            @Html.ValidationMessageFor(m => m.Password)
+
+            <div class="form-group form-horizontal">
+                <div class="checkbox">
+                    @Html.LabelFor(m => m.RememberMe)
+                    @Html.CheckBoxFor(m => m.RememberMe, new { @style = "margin-top:-6%" })
+                </div>
+            </div>
+            <button id="login" type="submit">Login</button>
+        }
+    </div>
+</div>

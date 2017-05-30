@@ -1,0 +1,41 @@
+﻿@using AgendaServicio.Entities.Common
+@model AgendaServicioMVC.Models.DatosCorreoLlamada
+
+@{
+    string url = Url.Action("CuerpoCorreo", "Listado", new { llamada = Json.Encode(Model) });
+}
+
+<div class="form form-group">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-10">
+                    <div class="col-sm-5">
+                        <p>
+                            @Html.Label("lblToEmail", "Para: ", new { @class = "control-label" })
+                            @Html.TextBox("txtToEmail", Model.EmailTo, new { id = "txtToEmail", @class = "form-control" })
+                        </p>
+                    </div>
+                    <div class="col-sm-5">
+                        <p>
+                            @Html.Label("lblCCEmail", "CC:", new { @class = "control-label" })
+                            @Html.TextBox("txtCCEmail", Model.EmailCC, new { id = "txtCCEmail", @class = "form-control" })
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    @Html.Hidden("txtEngEmail", Model.EmailEng)
+                    <button id="btnSendEmail" value="@(Model.CallId.HasValue ? Model.CallId.Value.ToString() : "")" class="btn btn-success" style="float:right;">Enviar</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center;">
+                <iframe src="@url" width="680" height="480" align="middle"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Hidden("txtDateCallEmail", Model.DateAct.ToString("yyyy/MM/dd"))
+@Html.Hidden("txtEstatusCallEmail", Model.Estatus)
+<script type="text/javascript" src="~/Scripts/js/Listado/Correo.js"></script>

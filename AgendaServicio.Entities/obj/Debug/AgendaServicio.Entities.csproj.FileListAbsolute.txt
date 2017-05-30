@@ -1,0 +1,6 @@
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Entities\bin\Debug\AgendaServicio.Entities.dll.config
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Entities\bin\Debug\AgendaServicio.Entities.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Entities\bin\Debug\AgendaServicio.Entities.pdb
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Entities\obj\Debug\AgendaServicio.Entities.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Entities\obj\Debug\AgendaServicio.Entities.pdb
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.Entities\obj\Debug\AgendaServicio.Entities.csprojResolveAssemblyReference.cache

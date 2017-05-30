@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AgendaServicioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Companies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="UsersDetails" Relationship="Self.FK_UsersDetails_UsersDetails" FromRole="Companies" ToRole="UsersDetails" />
+  </EntityType>
+  <EntityType Name="UsersDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdCompany" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Companies" Relationship="Self.FK_UsersDetails_UsersDetails" FromRole="UsersDetails" ToRole="Companies" />
+  </EntityType>
+  <Association Name="FK_UsersDetails_UsersDetails">
+    <End Role="Companies" Type="Self.Companies" Multiplicity="1" />
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Companies">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsersDetails">
+        <PropertyRef Name="IdCompany" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AgendaServicioEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Companies" EntityType="Self.Companies" />
+    <EntitySet Name="UsersDetails" EntityType="Self.UsersDetails" />
+    <AssociationSet Name="FK_UsersDetails_UsersDetails" Association="Self.FK_UsersDetails_UsersDetails">
+      <End Role="Companies" EntitySet="Companies" />
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

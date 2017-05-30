@@ -1,0 +1,120 @@
+﻿@using AgendaServicio.Entities.Common
+@model List<Ingeniero>
+
+@{
+    string sucursalActual = string.Empty;
+}
+
+<div class="col-lg-3 col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <div>Disponibles</div>
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 8pt; overflow-y:auto;  max-height: 188px" class="tb_Listado" id="tb_Listado">
+            <table style="margin-bottom:-1%" class="table table-bordered table-condensed table-striped table-responsive">
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if (!string.IsNullOrEmpty(item.Sucursal.Name))
+                        {
+                            if (!sucursalActual.ToLower().Equals(item.Sucursal.Name.ToLower()))
+                            {
+                                sucursalActual = item.Sucursal.Name;
+                                <tr>
+                                    <th colspan="4">
+                                        <p>
+                                            @Html.Label(sucursalActual.ToLower().StartsWith("zin asignar") ? sucursalActual.Replace("Z", "S") : sucursalActual)
+                                        </p>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                        if (!item.CallCenter && string.IsNullOrEmpty(item.Vacaciones) && !item.Servicio)
+                        {
+                            <tr style="text-align: center">
+                                <td>
+                                    @Html.Label(item.Name)
+                                </td>
+                                <td style="background-color:rgba(0, 215, 28, 0.14)">
+                                    @Html.Label("D")
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-3 col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <div>No Disponible</div>
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 8pt; overflow-y:auto;  max-height: 188px" class="tb_Listado" id="tb_Listado">
+            <table style="margin-bottom:-1%" class="table table-bordered table-condensed table-striped table-responsive">
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if (!string.IsNullOrEmpty(item.Sucursal.Name))
+                        {
+                            if (!sucursalActual.ToLower().Equals(item.Sucursal.Name.ToLower()))
+                            {
+                                sucursalActual = item.Sucursal.Name;
+                                <tr>
+                                    <th colspan="4">
+                                        <p>
+                                            @Html.Label(sucursalActual.ToLower().StartsWith("zin asignar") ? sucursalActual.Replace("Z", "S") : sucursalActual)
+                                        </p>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(item.Vacaciones))
+                        {
+                            <tr style="text-align: center">
+                                <td>
+                                    @Html.Label(item.Name)
+                                </td>
+                                <td style="background-color:rgb(255, 0, 0); color:white">
+                                    @Html.Label(item.VacacionesLetra)
+                                </td>
+                            </tr>
+                        }
+                        else if (item.Servicio)
+                        {
+                            <tr style="text-align: center">
+                                <td>
+                                    @Html.Label(item.Name)
+                                </td>
+                                <td style="background-color:rgb(255, 0, 0); color:white">
+                                    @Html.Label("S")
+                                </td>
+                            </tr>
+                        }
+                        else if (item.CallCenter)
+                        {
+                            <tr style="text-align: center">
+                                <td>
+                                    @Html.Label(item.Name)
+                                </td>
+                                <td style="background-color:rgb(255, 0, 0); color:white">
+                                    @Html.Label("CC")
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.DataAccess\bin\Release\AgendaServicio.DataAccess.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.DataAccess\bin\Release\AgendaServicio.DataAccess.pdb
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.DataAccess\bin\Release\AgendaServicio.Entities.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.DataAccess\bin\Release\AgendaServicio.Entities.pdb
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.DataAccess\obj\Release\AgendaServicio.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.DataAccess\obj\Release\AgendaServicio.DataAccess.dll
+C:\Users\cmontes\Documents\Visual Studio 2013\Projects\AgendaServicioMVC\AgendaServicio.DataAccess\obj\Release\AgendaServicio.DataAccess.pdb

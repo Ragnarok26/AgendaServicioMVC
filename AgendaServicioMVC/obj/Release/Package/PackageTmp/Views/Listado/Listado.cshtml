@@ -1,0 +1,252 @@
+﻿@using AgendaServicio.Entities.Common
+@model List<LlamadaServicio>
+@{
+    int counting = 0;
+    int colspan = 15;
+    if (((bool)ViewBag.ShowWaitTime))
+    {
+        colspan = 12;
+    }
+    string sucursalActual = string.Empty;
+    var usuario = (AgendaServicio.Entities.Common.Usuario)ViewBag.Usuario;
+    if (usuario != null)
+    {
+        if (usuario.Roles == null)
+        {
+            usuario.Roles = new List<AgendaServicio.Entities.Common.Rol>();
+        }
+    }
+    else
+    {
+        <script type="text/javascript">
+            window.location = "@Url.Action("GoHome", "Listado")";
+        </script>
+    }
+    <style>
+        th {
+            text-align: center;
+            background-color: #f9f9f9 !important;
+            color: black;
+            padding-top: 10px !important;
+            padding-bottom: 2px !important;
+        }
+
+        .tdRowspan {
+            background-color: #ffffff !important;
+        }
+    </style>
+}
+
+@if ((bool)ViewBag.ShowHeader) {
+    <h2>Servicios (@(((int)ViewBag.ConteoListado).ToString()) @(((int)ViewBag.ConteoListado) == 1 ? "servicio creado" : "servicios creados") el @(((DateTime)ViewBag.FechaListado).ToString("dd/MM/yyyy")))</h2>
+}
+
+<div class="table-responsive">
+    <table class="table table-condensed table-striped table-sm" style="font-size:8pt;" id="tb_Listado">
+        <tr>
+            <th style="min-width:12%">
+                <p>
+                    @Html.LabelFor(model => model.FirstOrDefault().CallId)
+                </p>
+            </th>
+            <th>
+                @Html.LabelFor(model => model.FirstOrDefault().TiempoRespuesta)
+            </th>
+            <th>
+                @Html.LabelFor(model => model.FirstOrDefault().CausaRetraso)
+            </th>
+            <th>
+                <p>
+                    @Html.LabelFor(model => model.FirstOrDefault().Priority)
+                </p>
+            </th>
+            <th>
+                <p>
+                    @Html.LabelFor(model => model.FirstOrDefault().CustomerName)
+                </p>
+            </th>
+            <th>
+                <p>
+                    @Html.LabelFor(model => model.FirstOrDefault().SN)
+                </p>
+            </th>
+            <th>
+                @Html.LabelFor(model => model.FirstOrDefault().ItemCode)
+            </th>
+            <th>
+                @Html.LabelFor(model => model.FirstOrDefault().Subject)
+            </th>
+            <th>
+                <p>
+                    @Html.LabelFor(model => model.FirstOrDefault().Description)
+                </p>
+            </th>
+            <th>
+                @Html.LabelFor(model => model.FirstOrDefault().Actividades.FirstOrDefault().ActivityType)
+            </th>
+            <th>
+                @Html.LabelFor(model => model.FirstOrDefault().CallType)
+            </th>
+            @if (((bool)ViewBag.ShowWaitTime))
+            {
+                <th>
+                    @Html.LabelFor(model => model.FirstOrDefault().DescriptionEstatus)
+                </th>
+            }
+            <th>
+                @Html.LabelFor(model => model.FirstOrDefault().Actividades.FirstOrDefault().ActivityCreateDate)
+            </th>
+            <th>
+                @Html.LabelFor(model => model.FirstOrDefault().Actividades.FirstOrDefault().ActivityBeginTime)
+            </th>
+            @if (((bool)ViewBag.ShowWaitTime))
+            {
+                <th>
+                    @Html.LabelFor(model => model.FirstOrDefault().Actividades.FirstOrDefault().TiempoEspera)
+                </th>
+                @*<th>
+                    @Html.LabelFor(model => model.FirstOrDefault().Actividades.FirstOrDefault().CausaRetraso)
+                </th>*@
+            }
+            @if (((List<int>)ViewBag.EstatusServicio).Any(v => v == 2))
+            {
+                colspan++;
+                <th>
+                    @Html.LabelFor(model => model.FirstOrDefault().Actividades.FirstOrDefault().Ingeniero.Name)
+                </th>
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            if (!string.IsNullOrEmpty(item.SucursalServicio))
+            {
+                if (!sucursalActual.ToLower().Equals(item.SucursalServicio.ToLower()))
+                {
+                    sucursalActual = item.SucursalServicio;
+                    <tr>
+                        <th colspan="@colspan">
+                            @Html.Label(sucursalActual.ToLower().StartsWith("zin asignar") ? sucursalActual.Replace("Z", "S") : sucursalActual, new { @style = "color: dimgray; font-size: larger; font-weight: bolder; text-transform: uppercase;", id = sucursalActual })
+                        </th>
+                    </tr>
+                }
+            }
+            else
+            {
+                if (!sucursalActual.ToLower().StartsWith("zin asignar"))
+                {
+                    sucursalActual = "Zin Asignar Sucursal";
+                    <tr>
+                        <th colspan="@colspan">
+                            @Html.Label("Sin Asignar Sucursal", new { @style = "color:Red" })
+                        </th>
+                    </tr>
+                }
+            }
+            counting = 0;
+            int? countAct = item.Actividades.Count();
+            @:<tr>
+                <td rowspan=@countAct class="tdRowspan htCellVerticalCenter">
+                    @*<a href="@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? "javascript:CargarDatosLlamada('" + item.CallId.ToString() + "')" : "#")" class="linkCallId" style="background-color: none; float: right; font-size: 12px;">@item.CallDocNum.ToString()</a>*@
+                    <a href="@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? "javascript:CargarDatosLlamada('" + item.CallId.ToString() + "', " + (item.Estatus <= 0 ? "null" : item.Estatus.ToString()) + ")" : "#")" class="linkCallId" style="background-color: none; float: right; font-size: 12px;">@item.CallDocNum.ToString()</a>
+                    @if (item.Estatus == 2 && ((bool)ViewBag.ShowEmailIcon))
+                    {
+                        <a href="@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? "javascript:CargarDatosCorreo('" + item.CallId.ToString() + "', '" + item.ContactEmail + "', '" + item.Actividades.FirstOrDefault().Ingeniero.email + "', " + item.Estatus.ToString() + ")" : "#")" style="background-color: none; float: right;">
+                            @if (item.CorreosEnviados > 0)
+                            {
+                                @Html.Raw("<div class=\"btn-xs btn-success\" style=\"padding: 2px 2px; font-size: 10px; border-radius: 35px; position: absolute; z-index: 10; margin-top: -5px; margin-left: -10px;\">" + item.CorreosEnviados.ToString() + "</div>")
+                            }
+                            <div class="glyphicon glyphicon-envelope" style="font-size: 18px;"></div>
+                        </a>
+                    }
+                </td>
+                <td rowspan=@countAct class="htCellVerticalCenter" style="text-align:center; background-color: @(item.TiempoRespuesta >= 3 ? "red; color: white;" : (item.TiempoRespuesta == 2 ? "yellow" : "white"));">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.TiempoRespuesta)
+                    </p>
+                </td>
+                <td rowspan=@countAct class="tdRowspan htCellVerticalCenter">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.CausaRetraso)
+                    </p>
+                </td>
+                <td rowspan=@countAct class="tdRowspan htCellVerticalCenter" style="background-color: @(!string.IsNullOrEmpty(item.Priority) ? (item.Priority.ToLower().Equals("alta") ? "red; color: white" : (item.Priority.ToLower().Equals("media") ? "yellow" : "white")) : "white");">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Priority)
+                    </p>
+                </td>
+                <td rowspan=@countAct class="tdRowspan htCellVerticalCenter">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </p>
+                </td>
+                <td rowspan=@countAct class="tdRowspan htCellVerticalCenter">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.SN)
+                    </p>
+                </td>
+                <td rowspan=@countAct class="tdRowspan htCellVerticalCenter">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.ItemCode)
+                    </p>
+                </td>
+                <td rowspan=@countAct class="tdRowspan htCellVerticalCenter">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </p>
+                </td>
+                <td rowspan=@countAct class="tdRowspan htCellVerticalCenter">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.DescriptionTruncated)
+                    </p>
+                </td>
+                foreach (var ActIng in item.Actividades)
+                {
+                    counting++;
+                    <td class="htCellVerticalCenter">
+                        @Html.DisplayFor(modelItem => ActIng.ActivityType)
+                    </td>
+                    <td class="htCellVerticalCenter">
+                        @Html.DisplayFor(modelItem => item.CallType)
+                    </td>
+                    if (((bool)ViewBag.ShowWaitTime))
+                    {
+                        <td class="htCellVerticalCenter">
+                            <b>
+                                @Html.DisplayFor(modelItem => item.DescriptionEstatus)
+                            </b>
+                        </td>
+                    }
+                    <td class="htCellVerticalCenter">
+                        @Html.DisplayFor(modelItem => ActIng.ActivityCreateDate)
+                    </td>
+                    <td class="htCellVerticalCenter">
+                        @Html.DisplayFor(modelItem => ActIng.ActivityBeginTime)
+                    </td>
+                    if (((bool)ViewBag.ShowWaitTime))
+                    {
+                        <td class="htCellVerticalCenter" style="text-align:center; background-color: @(ActIng.TiempoEspera >= 3 ? "red; color: white;" : (ActIng.TiempoEspera == 2 ? "yellow" : "white"));">
+                            @Html.DisplayFor(modelItem => ActIng.TiempoEspera)
+                        </td>
+                        @*<td class="htCellVerticalCenter">
+                            @Html.DisplayFor(modelItem => ActIng.CausaRetraso)
+                        </td>*@
+                    }
+                    if (item.Estatus == 2)
+                    {
+                        if (ActIng.Ingeniero != null)
+                        {
+                            <td class="htCellVerticalCenter">
+                                @Html.Label("Ing", ActIng.Ingeniero.Name)
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="htCellVerticalCenter">@Html.Label("Ingeniero no encontrado: " + ActIng.EngineerId, new { @style = "color:Red" })</td>
+                        }
+                    }
+                    @:</tr>
+                }
+        }
+    </table>
+</div>

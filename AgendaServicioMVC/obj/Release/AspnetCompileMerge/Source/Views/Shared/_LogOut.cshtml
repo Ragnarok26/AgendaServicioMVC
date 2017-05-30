@@ -1,0 +1,40 @@
+﻿@using System.Text;
+@{
+    var usuario = (AgendaServicio.Entities.Common.Usuario)ViewBag.Usuario;
+    Encoding w1252 = Encoding.GetEncoding(1252);
+    Encoding utf8 = Encoding.UTF8;
+    var companyUser = utf8.GetString(w1252.GetBytes(usuario.Compania.Name));
+    //var UserName = usuario.UserName;
+    var UserName = utf8.GetString(w1252.GetBytes(usuario.Name + " " + usuario.FirstName + " " + usuario.LastName));
+}
+@if (usuario != null)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <button class="btn btn-sm btn-default" style="margin-top: 10px; margin-bottom: 2px;" onclick="Actualizar();">
+                <span class="glyphicon glyphicon-refresh"></span> Obtener Datos Actualizados
+            </button>
+        </li>
+        <li>
+            <a>
+                @companyUser
+            </a>
+        </li>
+        <li>
+            <a>
+                <span class="glyphicon glyphicon-user"></span>
+                <b id="UserLogged">@UserName</b>
+            </a>
+        <li>
+        <li>
+            @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <button class="btn btn-sm btn-default" style="margin-top: 10px; margin-bottom: 2px;" onclick="Salir();">
+                    <span class="glyphicon glyphicon-log-out"></span> Salir
+                </button>
+            }
+        </li>
+    </ul>
+    @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;");
+}

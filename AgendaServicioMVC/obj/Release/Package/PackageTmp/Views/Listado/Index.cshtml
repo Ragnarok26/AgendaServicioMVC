@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Listado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var usuario = (AgendaServicio.Entities.Common.Usuario)ViewBag.Usuario;
+    if (usuario.Roles == null)
+    {
+        usuario.Roles = new List<AgendaServicio.Entities.Common.Rol>();
+    }
+    Dictionary<string, int> datos = (Dictionary<string, int>)ViewBag.ListEstatusServicio;
+    if (datos == null)
+    {
+        datos = new Dictionary<string, int>();
+    }
+}
+
+<div id="ListadoIndex">
+    @if (!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")))
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Partial("CorreoModal")
+            </div>
+            <div class="col-lg-12">
+                @*@Html.Partial("_Alerts")*@
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <div>Filtros del listado</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form form-group">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @Html.Label("lblDatePicker", "Seleccione fecha", new { @class = "control-label" })
+                                <div class="input-group">
+                                    @Html.TextBox("txtDatePicker", DateTime.Today, "{0:dd/MM/yyyy}", new { id = "datepicker", @placeholder = "Seleccione fecha", @class = "form-control" })
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" value="datepicker2" id="btn2">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @Html.Label("lblEstatusFilter", "Estatus de la llamada", new { @class = "control-label" })
+                                @*@Html.DropDownList("EstatusServicio", (SelectList)ViewBag.ListEstatusServicio, new { @value = 1, @id = "estatusServicio", @class = "form-control" })*@
+                                <div class="form-inline">
+                                    @for (int x = 0; x < datos.Count; x++)
+                                    {
+                                        <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                                            <p class="form-check-label">
+                                                @Html.CheckBox("estatusServicio_" + (x + 1), datos.Values.ElementAt(x) == 1, new { @value = datos.Values.ElementAt(x), @class = "form-check-input filterStatus" })@datos.Keys.ElementAt(x)
+                                            </p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @Html.Label("lblIdCallFilter", "Filtrar por número de llamada", new { @class = "control-label" })
+                                <div class="input-group">
+                                    @Html.TextBox("txtCallID", "", new { id = "txtCallID", @maxlength = "6", @class = "form-control" })
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnCallIDFilter">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ContainerIngCC" class="col-lg-3 col-md-6"></div>
+        <div id="ContainerEngAvailable"></div>
+    </div>
+</div>
+<h2>Servicios Pr&oacute;ximos (Reprogramados)</h2>
+<div id="divRescheduler" style="height: 250px; overflow-y: auto;"></div>
+<br />
+<div id="divLoad"></div>
+@if (!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")))
+{
+    @Html.Partial("EditarModal")
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        var url_Listado = "@Url.Action("Listado", "Listado")";
+        var url_ListadoReprogramadas = "@Url.Action("ListadoReprogramadas", "Listado")";
+        var url_DisponibilidadIngenieros = "@Url.Action("IngenierosDisponibilidad", "Listado")";
+        var url_IngenierosCallCenter = "@Url.Action("IngenierosCallCenter", "Listado")";
+        var url_EditarLlamada = "@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? Url.Action("EditarLlamada", "Listado") : "")";
+        var url_CorreoLlamada = "@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? Url.Action("CorreoLlamada", "Listado") : "")";
+        var url_ProcesoEditarLlamada = "@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? Url.Action("ProcesoEditarLlamada", "Listado") : "")";
+        var url_ProcesoEditarActividad = "@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? Url.Action("ProcesoEditarActividad", "Listado") : "")";
+        var url_AgregarIngenieros = "@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? Url.Action("AgregarIngenieros", "Listado") : "")";
+        var url_QuitarIngenieros = "@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? Url.Action("QuitarIngenieros", "Listado") : "")";
+        var url_EnviarCorreo = "@(!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")) ? Url.Action("EnviarCorreo", "Listado") : "")";
+    </script>
+    <script src="~/Scripts/js/Listado/Listado.js"></script>
+    @if (!usuario.Roles.Any(v => v.Name.Equals("Solo Lectura")))
+    {
+        <script src="~/Scripts/js/Listado/Edicion.js"></script>
+    }
+}
